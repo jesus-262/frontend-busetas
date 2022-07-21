@@ -215,7 +215,7 @@ function Cpanel() {
         <h1>Cpanel</h1>
         <div className="container">
           <div className="card">
-            <div className="card-header">Jesus copete</div>
+            <div className="card-header"></div>
             <div className="card-body">
               <h5 className="card-title">Bienvenido Administrador</h5>
               <p className="card-text"></p>
