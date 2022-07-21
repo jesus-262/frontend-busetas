@@ -183,7 +183,7 @@ function Formulario() {
       return (
         <>
           <button
-            style={{ width: "20%", height: "100%" }}
+            style={{ width: "200px", height: "100%" }}
             type="button"
             className="btn btn-danger"
             onClick={() => borrar({ id })}
@@ -303,7 +303,7 @@ function Formulario() {
                 <div key={id}>
                   <div
                     className="container "
-                    style={{ width: "50%", height: "100%" }}
+                    style={{ width: "100%", height: "100%" }}
                   >
                     <div className="card text-white bg-success mb-3">
                       <div className="card-body">
