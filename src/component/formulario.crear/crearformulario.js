@@ -369,8 +369,7 @@ function Crearformulario(props) {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="">
+                <div className="">
                 <div className="card-body text-success">
                   <h5 className="card-title">Observaciones</h5>
                   <div className="card-text">
@@ -379,6 +378,7 @@ function Crearformulario(props) {
                         className="form-control"
                         id="exampleFormControlTextarea1"
                         rows="3"
+                        maxLength="150"
                         onChange={observacionChange}
                       ></textarea>
                     </div>
@@ -387,6 +387,9 @@ function Crearformulario(props) {
 
                 {renderimagen()}
               </div>
+              <br></br>
+              </div>
+             
             </div>
             <div className="card-footer bg-transparent border-success lineaverde">
               <button

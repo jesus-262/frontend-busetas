@@ -268,7 +268,7 @@ function Formulario() {
     <>
       <div className="float-right">
         <button
-          style={{ width: "20%", height: "100%" }}
+          style={{ width: "100px", height: "100%" }}
           type="button"
           className="btn btn-danger"
           onClick={() => refrescar()}

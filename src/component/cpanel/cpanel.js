@@ -353,7 +353,8 @@ function Cpanel() {
       </div>
       <br></br>
       <div className="container">
-        <table className="table">
+      <div className="overflow-auto">
+        <table className="table table-striped">
           <thead>
             <tr>
               <th scope="col">Cedula</th>
@@ -384,6 +385,7 @@ function Cpanel() {
             ))}
           </tbody>
         </table>
+        </div>
       </div>
       <br></br>
       <br></br>
