@@ -244,7 +244,7 @@ function Formulario() {
     dayjs().format();
     dayjs().subtract(6, 'hour')
   
-    const quitarutc=dayjs(hora).subtract(6, 'hour')
+    const quitarutc=dayjs(hora).subtract(5, 'hour')
     const hour = dayjs(quitarutc).format("HH:mm:ssa");
     // console.log(dia);
     return (
