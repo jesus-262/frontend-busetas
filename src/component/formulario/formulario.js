@@ -242,7 +242,10 @@ function Formulario() {
   }
   function renderhora(hora) {
     dayjs().format();
-    const hour = dayjs(hora).format("HH:mm:ssa");
+    dayjs().subtract(6, 'hour')
+  
+    const quitarutc=dayjs(hora).subtract(6, 'hour')
+    const hour = dayjs(quitarutc).format("HH:mm:ssa");
     // console.log(dia);
     return (
       <h5 style={{ padding: "5px" }}>
