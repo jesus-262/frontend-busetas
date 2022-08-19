@@ -276,7 +276,7 @@ function Crearformulario(props) {
                       aria-label="Direccion"
                       aria-describedby="basic-addon1"
                       onChange={direccionChange}
-                      maxLength="20"
+                      maxLength="50"
                     ></input>
                     <br></br>
                     <div className="input-group mb-3">

@@ -185,7 +185,10 @@ function Cpanel() {
     //console.log(usuarios);
     setusuario((usuario = usuarios.data));
     //setnavegacion((navegacion = usuarios.data.navegacion));
-
+    if(dato==""){
+      console.log("entro a dato")
+      mostrausuarios();
+    }
     setmensaje((mensaje = { mensaje: "" }));
     setsucces((succes = { succes: "" }));
 
@@ -727,7 +730,7 @@ function Cpanel() {
                       >
                         Día
                       </label>
-                      <div className="col-sm-10">
+                      <div className="col-sm-50">
                         <select
                           className="form-select"
                           aria-label="Default select example"
@@ -774,7 +777,7 @@ function Cpanel() {
                       >
                        Mes
                       </label>
-                      <div className="col-sm-10">
+                      <div className="col-sm-50">
                         <select
                           className="form-select"
                           aria-label="Default select example"
