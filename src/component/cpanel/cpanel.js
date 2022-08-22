@@ -37,7 +37,7 @@ function Cpanel() {
   var [nombrelabel, setnombrelabel] = useState(null);
   var [apellidolabel, setapellidolabel] = useState(null);
 
-  var [textoboton, settextoboton] = useState("Edictar");
+  var [textoboton, settextoboton] = useState("Editar");
   var [comparar, setcomparardisabled] = useState();
   var [idd , setidd] = useState(0);
   Modal.setAppElement("body");
@@ -337,15 +337,15 @@ function Cpanel() {
     });*/
   };
   
-  const edictar = async (id,cedu,contrasena, nombre, apellido) => {
- console.log("edictar")
-  if(textoboton=="Edictar"){
+  const Editar = async (id,cedu,contrasena, nombre, apellido) => {
+ console.log("Editar")
+  if(textoboton=="Editar"){
     //aqui preparar todo para despues guardar
     settextoboton((textoboton="Guardar"));
     setcomparardisabled((comparar=cedu));
     setidd((idd=id));
     
-    ///edictarusuario
+    ///Editarusuario
     //reiniciar
     setcedulalabel((cedulalabel=null));
     setnombrelabel((nombrelabel=null));
@@ -366,7 +366,7 @@ function Cpanel() {
       setcontrasenalabel((contrasenalabel=contrasena));
     }
     //aqui axios para base de datos
-    settextoboton((textoboton="Edictar"));
+    settextoboton((textoboton="Editar"));
     setcomparardisabled((comparar=""));
     setidd((idd=0));
     const params={
@@ -392,18 +392,18 @@ function Cpanel() {
  
 
   };
-  function renderedictar(id, cedula, contrasena, nombre, apellido) {
+  function renderEditar(id, cedula, contrasena, nombre, apellido) {
     return (
       <>
         <button
           style={{ width: "100%", height: "100%" }}
           type="button"
           className="btn btn-warning"
-          onClick={() => edictar(id,cedula, contrasena,nombre, apellido)}
+          onClick={() => Editar(id,cedula, contrasena,nombre, apellido)}
           disabled= {id==idd ||idd==0? false: true}
           
         >
-          {cedula==comparar ? "Guardar": "Edictar"}
+          {cedula==comparar ? "Guardar": "Editar"}
        
         </button>
       </>
@@ -648,7 +648,7 @@ function Cpanel() {
               <th scope="col">Tipo</th>
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
-              <th scope="col">Edictar</th>
+              <th scope="col">Editar</th>
               <th scope="col">Borrar</th>
             </tr>
           </thead>
@@ -694,7 +694,7 @@ function Cpanel() {
                     ></input></td>
                 <td>
                
-                  {renderedictar(
+                  {renderEditar(
                     usuario.id,
                     usuario.cedula,
                     usuario.contrasena,
