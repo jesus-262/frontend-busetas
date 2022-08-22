@@ -69,7 +69,7 @@ function Cpanel() {
       })
       .catch((error) => {
         console.log("error pls");
-
+        localStorage.removeItem("user");
         window.location.href = "/";
       });
     setIsOpen(false);
@@ -85,7 +85,7 @@ function Cpanel() {
       })
       .catch((error) => {
         console.log("error pls");
-
+        localStorage.removeItem("user");
         window.location.href = "/";
       });
    
@@ -124,8 +124,8 @@ function Cpanel() {
         })
         .catch((error) => {
           console.log("error pls");
-         // localStorage.removeItem("user");
-          //window.location.href = "/";
+          localStorage.removeItem("user");
+          window.location.href = "/";
         });
         if(usuarionuevo.data=="La cedula ya existe"){
           setmensaje((mensaje = { mensaje: "La cedula ya existe" }));
