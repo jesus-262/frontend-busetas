@@ -9,7 +9,7 @@ function Formulario() {
   var [ultimo, setultimo] = useState(0);
   var [seconds, setSeconds] = useState(0);
   const ref = useRef();
-
+console.log("prueba");
   useEffect(() => {
     console.log("inicio de pagina");
     const token = localStorage.getItem("user");
