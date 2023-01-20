@@ -1,0 +1,59 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+*{
+  margin: auto;
+  padding: auto;
+}
+html, body{
+  height:100%;
+ 
+ 
+ 
+}
+.App {
+  text-align: center;
+}
+.abs-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+.login{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #53BF9D;
+    
+  }
+
+  .caja{
+       margin-bottom: 20px;
+  }
+  .padre {
+    position: relative;
+ }
+  .titulo-busetap{
+   
+    color: white;
+   
+  }
+
+  .titulo-Bienvenido{
+    color: #125B50;
+  }
+.lineaverde{
+  width: 100%;
+}
+ 
+.registro{
+ 
+  color: #125B50;
+  }
+.registro:hover{
+cursor: pointer;
+
+color:#53BF9D;
+}
+.nombre_registro{
+  float: left;
+}
