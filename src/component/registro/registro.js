@@ -40,11 +40,7 @@ function Registro(props) {
         withCredentials: true,
       })
       
-      .catch((error) => {
-        console.log("error pls");
-        localStorage.removeItem("user");
-        window.location.href = "/";
-      });
+      
       console.log(texto.data);
       setmensaje((mensaje = { mensaje: texto.data }));
       setsucces((succes = { succes: true }));
