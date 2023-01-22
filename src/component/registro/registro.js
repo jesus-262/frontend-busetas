@@ -199,29 +199,55 @@ function Registro(props) {
                     </div>
                     <div className="col-xs-12 ">
                       <label className="nombre_registro">Eps</label>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name='eps'
-                          onChange={changeform}
-                          className="form-control input-lg"
-
-                          maxLength="30"
-                        ></input>
-                      </div>
+                  
+                      <select
+                        className="form-select"
+                        name='eps'
+                        aria-label="Default select example"
+                        onChange={changeform}
+                      >
+                        <option value="NO TENGO">NO TENGO</option>
+                        <option value="NUEVA EPS">NUEVA EPS</option>
+                        <option value="COOSALUD">COOSALUD</option>
+                        <option value="EPS SURA">EPS SURA</option>
+                        <option value="COMFENALCO VALLE">COMFENALCO VALLE</option>
+                        <option value="SALUD TOTAL">SALUD TOTAL</option>
+                        <option value="EMSSANAR">EMSSANAR</option>
+                        <option value="COMFANDI">COMFANDI</option>
+                        <option value="CENTRO MEDICO IMBANACO">CENTRO MEDICO IMBANACO</option>
+                        <option value="FUNDACIÓN CLÍNICA VALLE DEL Lili">FUNDACIÓN CLÍNICA VALLE DEL Lili</option>
+                        <option value="CLÍNICA DE OCCIDENTE">CLÍNICA DE OCCIDENTE</option>
+                        <option value="CLÍNICA NUESTRA">CLÍNICA NUESTRA</option>
+                        <option value="CLÍNICA SEBASTIÁN DE BELALCÁZAR">CLÍNICA SEBASTIÁN DE BELALCÁZAR</option>
+                        <option value="COSMITET">COSMITET</option>
+                        <option value="DIRECCIÓN DE SANIDAD POLICÍA NACIONAL">DIRECCIÓN DE SANIDAD POLICÍA NACIONAL</option>
+                        <option value="CLÍNICA VERSALLES">CLÍNICA VERSALLES</option>
+                        <option value="HOSPITAL MILITAR CENTRAL">HOSPITAL MILITAR CENTRAL</option>
+                        <option value="PROFAMILIA">PROFAMILIA</option>
+                        <option value="FUNDACIÓN CLÍNICA INFANTIL CLUD NOEL">FUNDACIÓN CLÍNICA INFANTIL CLUD NOEL</option>
+                        <option value="HOSPITAL SAN JUAN DE DIOS">HOSPITAL SAN JUAN DE DIOS</option>
+                        <option value="OTRO">OTRO</option>
+                       
+                        
+                      </select>
                     </div>
                     <div className="col-xs-12 ">
                       <label className="nombre_registro">Caja de Compensación</label>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name='caja_de_compensacion'
-                          onChange={changeform}
-                          className="form-control input-lg"
-
-                          maxLength="30"
-                        ></input>
-                      </div>
+                   
+                      
+                       
+                        <select
+                        className="form-select"
+                        name='caja_de_compensacion'
+                        aria-label="Default select example"
+                        onChange={changeform}
+                      >
+                        <option value="NO TENGO">NO TENGO</option>
+                        <option value="COMFENALCO">COMFENALCO</option>
+                        <option value="COMFANDI">COMFANDI</option>
+                        
+                      </select>
+                      
                     </div>
                     <div className="col-xs-12 ">
                       <label className="nombre_registro">Cargo</label>

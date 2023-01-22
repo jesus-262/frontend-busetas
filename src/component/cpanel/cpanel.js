@@ -10,6 +10,8 @@ function Cpanel() {
   var [datos, setexcel] = useState([]);
   
   var [usuario, setusuario] = useState([]);
+  var [recorrido, setrecorrido] = useState([]);
+  var [mostrarnombre, setmostrarnombre] = useState('2');
   var [navegacion, setnavegacion] = useState([]);
   var [dato, setdato] = useState();
   var [dia, setdia] = useState('01');
@@ -18,7 +20,7 @@ function Cpanel() {
   
   var [cedula, setcedula] = useState();
   var [contrasena, setcontrasena] = useState();
-  var [rol, setrol] = useState("PERSONA NATURAL");
+  var [rol, setrol] = useState("ADMINISTRADOR");
   var [nombre, setnombre] = useState();
   var [apellido, setapellido] = useState();
   //toast
@@ -42,6 +44,7 @@ function Cpanel() {
     axios.defaults.headers.common["x-access-token"] =
       localStorage.getItem("user");
     mostrausuarios();
+    mostrarecorridos(0);
   }, []);
   function openModal() {
     setIsOpen(true);
@@ -149,6 +152,23 @@ function Cpanel() {
       'x-access-token': token 
     }}*/
   const token = localStorage.getItem("user");
+  const mostrarecorridos = async (id) => {
+    console.log("recorridos")
+    console.log(id)
+   var params={
+      id
+    }
+    var recorrido = await axios 
+    .post(enviroments.backendUrl + "/api/mostrarrecorrido",params)
+    .catch((error) => {
+      console.log("error pls");
+      localStorage.removeItem("user");
+      window.location.href = "/";
+    });
+    console.log("recorrido.data.recorrido")
+    console.log(recorrido.data)
+    setrecorrido((recorrido = recorrido.data));
+  }
   const mostrausuarios = async (e) => {
     const usuarios = await axios
       .get(enviroments.backendUrl + "/api/mostrarusuarios")
@@ -157,6 +177,7 @@ function Cpanel() {
         localStorage.removeItem("user");
         window.location.href = "/";
       });
+      console.log("usuarios.data.usuario");
     console.log(usuarios.data.usuario);
     setusuario((usuario = usuarios.data.usuario));
     setnavegacion((navegacion = usuarios.data.navegacion));
@@ -233,14 +254,22 @@ function Cpanel() {
     correo:null,
     eps:null,
     caja_de_compensacion:null,
-    cargo:null,
-    placa:null,
-    institucion_educativa:null,
     recorrido:null,
     validar:null
-    
    
- 
+  })
+  const [formulariorecorrido,setformulariorecorrido ] =useState({
+    ruta1:null,
+    ruta2:null,
+    ruta3:null,
+    ruta4:null,
+    ruta5:null,
+    institucion1:null,
+    institucion2:null,
+    matricula1:null,
+    matricula2:null,
+    matricula3:null
+      
   })
   const changeform=(e)=>{
     e.preventDefault();
@@ -248,6 +277,15 @@ function Cpanel() {
 
     //...tareas es para decirle que copie todo como esta y despues actualize solo el input que tecleamos
     setformulario({...formulario,[e.target.name]:e.target.value})
+    setmensaje((mensaje = { mensaje: "" }));
+    setsucces((succes = { succes: "" }));
+  }
+  const changeformrecorrido=(e)=>{
+   
+    console.log(e.target.name, e.target.value);
+
+    //...tareas es para decirle que copie todo como esta y despues actualize solo el input que tecleamos
+    setformulariorecorrido({...formulariorecorrido,[e.target.name]:e.target.value})
     setmensaje((mensaje = { mensaje: "" }));
     setsucces((succes = { succes: "" }));
   }
@@ -331,6 +369,25 @@ function Cpanel() {
       withCredentials: true,
     });*/
   };
+  const Vermas = async (id,nombre) => { 
+      //importante pare refrescar recorridos
+      mostrarecorridos(0);
+
+    var params={
+      id
+    }
+    await axios
+      .post(enviroments.backendUrl + "/api/agregarrecorrido",params)
+      .catch((error) => {
+        console.log("error pls");
+        localStorage.removeItem("user");
+        window.location.href = "/";
+      });
+      mostrarecorridos(id);
+    setmostrarnombre(nombre);
+   
+    console.log(id);
+  }
   const Validar = async (id) => {
   console.log("id");
   console.log(id);
@@ -347,7 +404,36 @@ function Cpanel() {
   });
   mostrausuarios();
   }
-  const Editar = async (id,cedu,contrasena, nombre, apellido,telefono,correo,eps,caja_de_compensacion,cargo,placa,institucion_educativa,recorrido) => {
+  const Guardar= async (id, ruta1,ruta2,ruta3,ruta4,ruta5,institucion1,institucion2,matricula1,matricula2,matricula3)=>{
+    console.log("enviar")
+    
+    const params={
+      ruta1:formulariorecorrido.ruta1==null?ruta1:formulariorecorrido.ruta1,
+      ruta2:formulariorecorrido.ruta2==null?ruta2:formulariorecorrido.ruta2,
+      ruta3:formulariorecorrido.ruta3==null?ruta3:formulariorecorrido.ruta3,
+      ruta4:formulariorecorrido.ruta4==null?ruta4:formulariorecorrido.ruta4,
+      ruta5:formulariorecorrido.ruta5==null?ruta5:formulariorecorrido.ruta5,
+      institucion1:formulariorecorrido.institucion1==null?institucion1:formulariorecorrido.institucion1,
+      institucion2:formulariorecorrido.institucion2==null?institucion2:formulariorecorrido.institucion2,
+      matricula1:formulariorecorrido.matricula1==null?matricula1:formulariorecorrido.matricula1,
+      matricula2:formulariorecorrido.matricula2==null?matricula2:formulariorecorrido.matricula2,
+      matricula3:formulariorecorrido.matricula3==null?matricula3:formulariorecorrido.matricula3,
+   
+     
+      id
+    }
+    console.log(id)
+    
+        await axios.post(enviroments.backendUrl + "/api/updaterecorrido", params, {
+         withCredentials: true,
+       })
+       .catch((error) => {
+         console.log("error pls");
+         localStorage.removeItem("user");
+         window.location.href = "/";
+       });
+  }
+  const Editar = async (id,cedu,contrasena, nombre, apellido,telefono,correo,eps,caja_de_compensacion,cargo) => {
  console.log("Editar")
   if(textoboton=="Editar"){
     //aqui preparar todo para despues guardar
@@ -371,9 +457,7 @@ function Cpanel() {
     setformulario({...formulario,[eps]:null})
     setformulario({...formulario,[caja_de_compensacion]:null})
     setformulario({...formulario,[cargo]:null})
-    setformulario({...formulario,[placa]:null})
-    setformulario({...formulario,[institucion_educativa]:null})
-    setformulario({...formulario,[recorrido]:null})
+
  
   }else{
     setformulario({...formulario,[cedula]:cedu})
@@ -385,9 +469,7 @@ function Cpanel() {
     setformulario({...formulario,[eps]:eps})
     setformulario({...formulario,[caja_de_compensacion]:caja_de_compensacion})
     setformulario({...formulario,[cargo]:cargo})
-    setformulario({...formulario,[placa]:placa})
-    setformulario({...formulario,[institucion_educativa]:institucion_educativa})
-    setformulario({...formulario,[recorrido]:recorrido})
+
     /*
     if(cedulalabel==null){
       setcedulalabel((cedulalabel=cedu));
@@ -420,15 +502,7 @@ function Cpanel() {
    if(formulario.cargo==null){
     formulario.cargo=cargo;
    }
-   if(formulario.placa==null){
-    formulario.placa=placa;
-   }
-   if(formulario.institucion_educativa==null){
-    formulario.institucion_educativa=institucion_educativa;
-   }
-   if(formulario.recorrido==null){
-    formulario.recorrido=recorrido;
-   }
+  
     //aqui axios para base de datos
     settextoboton((textoboton="Editar"));
     setcomparardisabled((comparar=""));
@@ -444,9 +518,7 @@ function Cpanel() {
       eps:formulario.eps,
       caja_de_compensacion:formulario.caja_de_compensacion,
       cargo:formulario.cargo,
-      placa:formulario.placa,
-      institucion_educativa:formulario.institucion_educativa,
-      recorrido:formulario.recorrido,
+   
    
      
       id
@@ -467,14 +539,14 @@ function Cpanel() {
  
 
   };
-  function renderEditar(id, cedula, contrasena, nombre, apellido,telefono,correo,eps,caja_de_compensacion,cargo,placa,institucion_educativa,recorrido,validar) {
+  function renderEditar(id, cedula, contrasena, nombre, apellido,telefono,correo,eps,caja_de_compensacion,cargo,validar) {
     return (
       <>
         <button
           style={{ width: "100%", height: "100%" }}
           type="button"
           className="btn btn-warning"
-          onClick={() => Editar(id,cedula, contrasena,nombre, apellido,telefono,correo,eps,caja_de_compensacion,cargo,placa,institucion_educativa,recorrido,validar)}
+          onClick={() => Editar(id,cedula, contrasena,nombre, apellido,telefono,correo,eps,caja_de_compensacion,cargo,validar)}
           disabled= {id==idd ||idd==0? false: true}
           
         >
@@ -553,6 +625,166 @@ function Cpanel() {
      
       </> );
     }
+    function rendervermas() {
+  console.log("recorrido en ver mas")
+  console.log(recorrido)
+  
+   
+      return (
+        <>
+      <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Matricula #1</th>
+      <th scope="col">Matricula #2</th>
+      <th scope="col">Matricula #3</th>
+      <th scope="col">Institucion Educativa #1</th>
+      <th scope="col">Institucion Educativa #2</th>     
+      <th scope="col">Recorrido #1</th>
+      <th scope="col">Recorrido #2</th>
+      <th scope="col">Recorrido #3</th>
+      <th scope="col">Recorrido #4</th>
+      <th scope="col">Recorrido #5</th>
+      <th scope="col">Guardar</th>
+    </tr>
+  </thead>
+
+  <tbody>
+            {recorrido.map((recorrido) => (
+              <tr key={"1"} >
+                
+                <td>{mostrarnombre} </td>
+                <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      checked={recorrido.matricula1}
+                      name="matricula1"
+                      maxLength="100"
+                       Value={recorrido.matricula1} 
+                    
+                    
+                    ></input> </td>
+                    <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      
+                      name="matricula2"
+                      maxLength="100"
+                     Value={recorrido.matricula2} 
+                   
+                    ></input></td>
+                    <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="matricula3"
+                      maxLength="100"
+                    Value={recorrido.matricula3} 
+                   
+                    ></input></td>
+                       <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="institucion1"
+                      maxLength="100"
+                     Value={recorrido.institucion1} 
+                   
+                    ></input></td>
+                       <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="institucion2"
+                      maxLength="100"
+                    Value={recorrido.institucion2} 
+                   
+                    ></input></td>
+                        <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="ruta1"
+                      maxLength="100"
+                    Value={recorrido.ruta1} 
+                   
+                    ></input></td>
+                        <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="ruta2"
+                      maxLength="100"
+                    Value={recorrido.ruta2} 
+                   
+                    ></input></td>
+                        <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="ruta3"
+                      maxLength="100"
+                   Value={recorrido.ruta3} 
+                   
+                    ></input></td>
+                        <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="ruta4"
+                      maxLength="100"
+                     Value={recorrido.ruta4} 
+                   
+                    ></input></td>
+                        <td><input 
+                      type="text"
+                      className="form-control"
+                      aria-describedby="basic-addon1"
+                      onChange={changeformrecorrido}
+                      name="ruta5"
+                      maxLength="100"
+                     Value={recorrido.ruta5} 
+                   
+                    ></input></td>
+                    <td>
+                    <button
+          style={{ width: "100%", height: "100%" }}
+          type="button"
+          className="btn btn-primary"
+          onClick={() => Guardar(recorrido.id_usuario, recorrido.ruta1,recorrido.ruta2,recorrido.ruta3,recorrido.ruta4,recorrido.ruta5,recorrido.institucion1,recorrido.institucion2,recorrido.matricula1,recorrido.matricula2,recorrido.matricula3)}
+     
+          
+        >Guardar
+   
+       
+        </button>
+        </td>
+               
+               
+         
+               
+                
+                </tr>))
+              
+                }
+  
+  </tbody>
+</table>
+       
+        </> );
+      }
   
   return (
     <>
@@ -618,9 +850,7 @@ function Cpanel() {
                           aria-label="Default select example"
                           onChange={rolChange}
                         >
-                          <option value="PERSONA NATURAL">
-                            PERSONA NATURAL
-                          </option>
+                        
                           <option value="ADMINISTRADOR">ADMINISTRADOR</option>
                         </select>
                       </div>
@@ -728,8 +958,6 @@ function Cpanel() {
               <th scope="col">Eps</th>
               <th scope="col">Caja de Compensacion</th>
               <th scope="col">Cargo</th>
-              <th scope="col">Placa</th>
-              <th scope="col">Institución Educativa</th>
               <th scope="col">Recorrido</th>
               <th scope="col">Validar</th>
               <th scope="col">Editar</th>
@@ -833,36 +1061,20 @@ function Cpanel() {
                      defaultValue={usuario.cargo}
                      disabled={usuario.cedula==comparar ? false: true}
                     ></input></td>
-                     <td><input 
-                      type="text"
-                      className="form-control"
-                      aria-describedby="basic-addon1"
-                      onChange={changeform}
-                      maxLength="100"
-                      name="placa"
-                     defaultValue={usuario.placa}
-                     disabled={usuario.cedula==comparar ? false: true}
-                    ></input></td>
-                     <td><input 
-                      type="text"
-                      className="form-control"
-                      aria-describedby="basic-addon1"
-                      onChange={changeform}
-                      name="institucion_educativa"
-                      maxLength="100"
-                     defaultValue={usuario.institucion_educativa}
-                     disabled={usuario.cedula==comparar ? false: true}
-                    ></input></td>
-                     <td><input 
-                      type="text"
-                      className="form-control"
-                      aria-describedby="basic-addon1"
-                      onChange={changeform}
-                      maxLength="100"
-                      name="recorrido"
-                     defaultValue={usuario.recorrido}
-                     disabled={usuario.cedula==comparar ? false: true}
-                    ></input></td>
+                   
+                    
+                     <td>   <button
+          style={{ width: "100%", height: "36px" }}
+          type="button"
+         
+          className= {usuario.validacion==0 ? "btn btn-danger": "btn btn-success"}
+          onClick={() => Vermas(usuario.id,usuario.nombre)}
+        
+          
+        >{"Ver mas"}
+          
+       
+        </button></td>
                     <td>
                     <button
           style={{ width: "100%", height: "36px" }}
@@ -872,7 +1084,7 @@ function Cpanel() {
           onClick={() => Validar(usuario.id)}
         
           
-        >{usuario.validacion==0 ? "NO": "SI"}
+        >{usuario.validacion==0 ? "No": "Si"}
           
        
         </button>
@@ -921,7 +1133,10 @@ function Cpanel() {
         </table>
         </div>
         {rendernavegacion()}
-      
+        <br></br>
+     
+     <br></br> 
+        {rendervermas()}
      
       <br></br>
      
@@ -1052,7 +1267,7 @@ function Cpanel() {
                       </button>
       </div>
     
-     
+      
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
