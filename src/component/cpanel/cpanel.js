@@ -211,6 +211,7 @@ function Cpanel() {
 
   };
   const cedulaChange = async (e) => {
+    e.target.value=e.target.value.replace(/\D/g, "");
     e.preventDefault();
     setcedula((cedula = e.target.value));
     console.log("cedula" + cedula);
@@ -274,7 +275,13 @@ function Cpanel() {
   const changeform=(e)=>{
     e.preventDefault();
     console.log(e.target.name, e.target.value);
-
+    if(e.target.name=="cedula"){
+      e.target.value=e.target.value.replace(/\D/g, "");
+    }
+    if(e.target.name=="telefono"){
+      e.target.value=e.target.value.replace(/\D/g, "");
+    }
+   
     //...tareas es para decirle que copie todo como esta y despues actualize solo el input que tecleamos
     setformulario({...formulario,[e.target.name]:e.target.value})
     setmensaje((mensaje = { mensaje: "" }));
@@ -785,7 +792,19 @@ function Cpanel() {
        
         </> );
       }
-  
+      function check(e) {
+        var tecla = (document.all) ? e.keyCode : e.which;
+    
+        //Tecla de retroceso para borrar, siempre la permite
+        if (tecla == 8) {
+            return true;
+        }
+    
+        // Patrón de entrada, en este caso solo acepta numeros y letras
+        var patron = /[A-Za-z0-9]/;
+        var tecla_final = String.fromCharCode(tecla);
+        return patron.test(tecla_final);
+    }
   return (
     <>
       <div className="App">
@@ -794,6 +813,7 @@ function Cpanel() {
           <div className="card">
             <div className="card-header"></div>
             <div className="card-body">
+            <form className="form-horizontal" onSubmit={crear}>
               <h5 className="card-title">Bienvenido Administrador</h5>
               <p className="card-text"></p>
               <div className="align-content-md-end">
@@ -806,15 +826,19 @@ function Cpanel() {
                       >
                         Cedula
                       </label>
-                      <div className="col-sm-10">
+                      <div className="col-sm-10 ">
                         <input
-                          type="number"
+                        
+                        type="text"
+                  
+                         
                           className="form-control"
                           placeholder="Cedula"
                           aria-label="# Placa"
                           aria-describedby="basic-addon1"
-                          onChange={cedulaChange}
+                          onChange={(e) => cedulaChange (e) }
                           maxLength="20"
+                         
                         ></input>
                       </div>
                     </div>
@@ -916,9 +940,13 @@ function Cpanel() {
                         Descargar excel
                       </button>
                     </div>
+                
                   </div>
+                 
                 </div>
+               
               </div>
+              </form>
             </div>
           </div>
         </div>
@@ -972,9 +1000,9 @@ function Cpanel() {
                       type="text"
                       className="form-control"
                       aria-describedby="basic-addon1"
-                      onChange={changeform}
+                      onChange={(e) => changeform (e) }
                       name="cedula"
-                      maxLength="20"
+                      maxLength="100"
                      defaultValue={usuario.cedula}
                      disabled={usuario.cedula==comparar ? false: true}
                     ></input></td>
@@ -1011,7 +1039,8 @@ function Cpanel() {
                     ></input></td>
                      {/*desde aqui empieza mi dolor de cabeza */}
                        <td><input 
-                      type="text"
+                       type="text"
+                     
                       className="form-control"
                       aria-describedby="basic-addon1"
                       onChange={changeform}
@@ -1022,7 +1051,7 @@ function Cpanel() {
                     ></input>
                     </td>
                        <td><input 
-                      type="text"
+                      type="email"
                       className="form-control"
                       aria-describedby="basic-addon1"
                       onChange={changeform}

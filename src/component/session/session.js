@@ -141,7 +141,9 @@ function Session(props) {
                     <div className="col-xs-12 caja">
                       <div className="form-group">
                         <input
-                          type="Number"
+                            type="number"
+                            min="1"
+                            max="999999999999999999999"
                           onChange={cedulaChange}
                           className="form-control input-lg"
                           placeholder="Cedula"

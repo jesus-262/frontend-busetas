@@ -133,12 +133,13 @@ function Registro(props) {
                       <label className="nombre_registro">Cedula *</label>
                       <div className="form-group">
                         <input
-                          type="Number"
+                          type="number"
+                          min="1"
+                          max="999999999999999999999"
                           name='cedula'
                           onChange={changeform}
                           className="form-control input-lg"
 
-                          maxLength="20"
                         ></input>
                       </div>
                     </div>
@@ -173,11 +174,15 @@ function Registro(props) {
                       <label className="nombre_registro">Telefono *</label>
                       <div className="form-group">
                         <input
-                          type="Number"
+                         
                           name='telefono'
                           onChange={changeform}
                           className="form-control input-lg"
-                          maxLength="20"
+                          id="telefono" 
+                         
+                          type="number"
+                          min="1"
+                          max="999999999999999999999"
                         ></input>
                       </div>
                     </div>
@@ -185,7 +190,7 @@ function Registro(props) {
                       <label className="nombre_registro">Correo *</label>
                       <div className="form-group">
                         <input
-                          type="text"
+                          type="email"
                           name='correo'
                           onChange={changeform}
                           className="form-control input-lg"
